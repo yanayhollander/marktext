@@ -140,7 +140,7 @@ export default {
     flex-shrink: 0;
     flex-grow: 0;
     width: 280px;
-    height: 100vh;
+    height: calc(100vh - var(--titleBarHeight) - var(--statusBarHeight));
     min-width: 220px;
     position: relative;
     color: var(--sideBarColor);
@@ -155,7 +155,7 @@ export default {
   }
 
   .left-column {
-    height: 100%;
+    height: calc(100vh - var(--titleBarHeight) - var(--statusBarHeight));
     width: 45px;
     display: flex;
     flex-direction: column;

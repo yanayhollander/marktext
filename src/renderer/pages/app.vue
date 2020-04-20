@@ -1,5 +1,8 @@
 <template>
-  <div
+<div class="container">
+<div class="header">header</div>
+<div class="content">
+<div
     class="editor-container"
   >
     <side-bar v-if="init"></side-bar>
@@ -35,6 +38,9 @@
       <import-modal></import-modal>
     </div>
   </div>
+    </div>
+<div class="footer">bottom</div>
+</div>
 </template>
 
 <script>
@@ -198,9 +204,8 @@ export default {
   .editor-container {
     display: flex;
     flex-direction: row;
-    position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     top: 0;
     left: 0;
     right: 0;
@@ -209,7 +214,6 @@ export default {
   .editor-container .hide {
     z-index: -1;
     opacity: 0;
-    position: absolute;
     left: -10000px;
   }
   .editor-placeholder {
@@ -219,10 +223,30 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 100vh;
-    position: relative;
     & > .editor {
       flex: 1;
     }
   }
+  .container {
+      display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+.header {
+  flex-grow: 0;
+  min-height: var(--titleBarHeight);
+  background-color: red;
+}
+.content {
+  flex-grow: 1;
+  height: calc(100vh - var(--titleBarHeight) - var(--statusBarHeight));
+  background-color: green;
+}
+.footer {
+  flex-grow: 0;
+  min-height: var(--statusBarHeight);
+  background-color: blue;
+}
 </style>
