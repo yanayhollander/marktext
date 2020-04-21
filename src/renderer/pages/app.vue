@@ -1,46 +1,41 @@
 <template>
-<div class="container">
-<div class="header">header</div>
-<div class="content">
-<div
-    class="editor-container"
-  >
-    <side-bar v-if="init"></side-bar>
-    <div class="editor-middle">
-      <title-bar
-        :project="projectTree"
-        :pathname="pathname"
-        :filename="filename"
-        :active="windowActive"
-        :word-count="wordCount"
-        :platform="platform"
-        :is-saved="isSaved"
-      ></title-bar>
-      <div class="editor-placeholder" v-if="!init"></div>
-      <recent
-        v-if="!hasCurrentFile && init"
-      ></recent>
-      <editor-with-tabs
-        v-if="hasCurrentFile && init"
-        :markdown="markdown"
-        :cursor="cursor"
-        :source-code="sourceCode"
-        :show-tab-bar="showTabBar"
-        :text-direction="textDirection"
-        :platform="platform"
-      ></editor-with-tabs>
-      <aidou></aidou>
-      <command-palette></command-palette>
-      <about-dialog></about-dialog>
-      <export-setting-dialog></export-setting-dialog>
-      <rename></rename>
-      <tweet></tweet>
-      <import-modal></import-modal>
+  <div class="container">
+    <div class="content">
+      <div class="editor-container">
+        <side-bar v-if="init"></side-bar>
+        <div class="editor-middle">
+          <title-bar
+            :project="projectTree"
+            :pathname="pathname"
+            :filename="filename"
+            :active="windowActive"
+            :word-count="wordCount"
+            :platform="platform"
+            :is-saved="isSaved"
+          ></title-bar>
+          <div class="editor-placeholder" v-if="!init"></div>
+          <recent v-if="!hasCurrentFile && init"></recent>
+          <editor-with-tabs
+            v-if="hasCurrentFile && init"
+            :markdown="markdown"
+            :cursor="cursor"
+            :source-code="sourceCode"
+            :show-tab-bar="showTabBar"
+            :text-direction="textDirection"
+            :platform="platform"
+          ></editor-with-tabs>
+          <aidou></aidou>
+          <command-palette></command-palette>
+          <about-dialog></about-dialog>
+          <export-setting-dialog></export-setting-dialog>
+          <rename></rename>
+          <tweet></tweet>
+          <import-modal></import-modal>
+        </div>
+      </div>
     </div>
+    <status-bar></status-bar>
   </div>
-    </div>
-<div class="footer">bottom</div>
-</div>
 </template>
 
 <script>
@@ -49,6 +44,7 @@ import Recent from '@/components/recent'
 import EditorWithTabs from '@/components/editorWithTabs'
 import TitleBar from '@/components/titleBar'
 import SideBar from '@/components/sideBar'
+import StatusBar from '@/components/statusBar'
 import Aidou from '@/components/aidou/aidou'
 import AboutDialog from '@/components/about'
 import CommandPalette from '@/components/commandPalette'
@@ -69,6 +65,7 @@ export default {
     EditorWithTabs,
     TitleBar,
     SideBar,
+    StatusBar,
     AboutDialog,
     ExportSettingDialog,
     Rename,
@@ -200,53 +197,42 @@ export default {
 </script>
 
 <style scoped>
-  .editor-placeholder,
-  .editor-container {
-    display: flex;
-    flex-direction: row;
-    width: 100vw;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .editor-container .hide {
-    z-index: -1;
-    opacity: 0;
-    left: -10000px;
-  }
-  .editor-placeholder {
-    background: var(--editorBgColor);
-  }
-  .editor-middle {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    & > .editor {
-      flex: 1;
-    }
-  }
-  .container {
-      display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
+.editor-placeholder,
+.editor-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-
-.header {
-  flex-grow: 0;
-  min-height: var(--titleBarHeight);
-  background-color: red;
+.editor-container .hide {
+  z-index: -1;
+  opacity: 0;
+  left: -10000px;
+}
+.editor-placeholder {
+  background: var(--editorBgColor);
+}
+.editor-middle {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  & > .editor {
+    flex: 1;
+  }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
 }
 .content {
   flex-grow: 1;
   height: calc(100vh - var(--titleBarHeight) - var(--statusBarHeight));
   background-color: green;
-}
-.footer {
-  flex-grow: 0;
-  min-height: var(--statusBarHeight);
-  background-color: blue;
 }
 </style>
