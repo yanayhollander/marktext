@@ -12,6 +12,14 @@ export const NEW_FILE = {
   }
 }
 
+export const NEW_NOTEBOOK = {
+  label: 'New Notebook',
+  id: 'newNotebookMenuItem',
+  click (menuItem, browserWindow) {
+    contextMenu.newNotebook()
+  }
+}
+
 export const NEW_DIRECTORY = {
   label: 'New Directory',
   id: 'newDirectoryMenuItem',
