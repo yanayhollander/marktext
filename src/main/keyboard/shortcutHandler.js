@@ -26,8 +26,9 @@ class Keybindings {
       ['mt.hide-others', 'Command+Alt+H'],
 
       // File menu
-      ['file.new-file', 'CmdOrCtrl+N'],
+      ['file.new-file', 'CmdOrCtrl+G'],
       ['file.new-tab', 'CmdOrCtrl+T'],
+      ['file.new-notebook', 'CmdOrCtrl+N'],
       ['file.open-file', 'CmdOrCtrl+O'],
       ['file.open-folder', 'CmdOrCtrl+Shift+O'],
       ['file.save', 'CmdOrCtrl+S'],

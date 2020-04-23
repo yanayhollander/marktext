@@ -13,6 +13,7 @@ import {
   QuickOpenCommand,
   TrailingNewlineCommand
 } from '../commands'
+import { newNotebook, getDummyNotebooks } from './actions/notebooks'
 
 const autoSaveTimers = new Map()
 
@@ -27,6 +28,9 @@ const state = {
 const mutations = {
   SET_NOTEBOOKS (state, notebooks) {
     state.notebooks = notebooks
+  },
+  SET_NEW_NOTEBOOK (state) {
+    state.notebooks.push(newNotebook())
   },
   // set search key and matches also index
   SET_SEARCH (state, value) {
@@ -687,10 +691,19 @@ const actions = {
   },
 
   // Create a new notebook
-  LISTEN_FOR_NEW_NOTEBOOK ({ dispatch }) {
+  LISTEN_FOR_NEW_NOTEBOOK ({ commit, dispatch }) {
+    dispatch('LOAD_NOTEBOOKS')
     ipcRenderer.on('mt::new-notebook', (e) => {
-      dispatch('SET_NOTEBOOKS', { notebooks: ['FAKEEE1', 'FAKKKKKE2'] })
+      dispatch('NEW_NOTEBOOK')
     })
+  },
+
+  LOAD_NOTEBOOKS ({ commit }) {
+    commit('SET_NOTEBOOKS', getDummyNotebooks())
+  },
+
+  NEW_NOTEBOOK ({ commit }) {
+    commit('SET_NEW_NOTEBOOK')
   },
 
   LISTEN_FOR_CLOSE_TAB ({ commit, state, dispatch }) {
@@ -791,7 +804,6 @@ const actions = {
     }
 
     dispatch('SHOW_TAB_VIEW', false)
-    dispatch('SET_NOTEBOOKS', ['fakeNote1', 'fakeNote2'])
 
     const { defaultEncoding, endOfLine } = rootState.preferences
     const { tabs } = state
