@@ -417,6 +417,10 @@ ipcMain.on('mt::cmd-new-editor-window', () => {
   newEditorWindow()
 })
 
+ipcMain.on('mt::cmd-new-notebook', () => {
+  newNotebook()
+})
+
 ipcMain.on('mt::cmd-open-folder', e => {
   const win = BrowserWindow.fromWebContents(e.sender)
   openFolder(win)
@@ -498,6 +502,12 @@ export const openFileOrFolder = (win, pathname) => {
     ipcMain.emit('app-open-directory-by-id', win.id, resolvedPath)
   } else {
     console.error(`[ERROR] Cannot open unknown file: "${resolvedPath}"`)
+  }
+}
+
+export const newNotebook = win => {
+  if (win && win.webContents) {
+    win.webContents.send('mt::new-notebook')
   }
 }
 
