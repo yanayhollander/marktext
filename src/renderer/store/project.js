@@ -138,9 +138,6 @@ const actions = {
       commit('CREATE_PATH', { dirname, type })
       bus.$emit('SIDEBAR::show-new-input')
     })
-    bus.$on('NOTEBOOK::new', type => {
-      commit('SET_NOTEBOOKS', { notebooks: ['horribleNote1', 'horribleNote2'] })
-    })
     bus.$on('SIDEBAR::remove', () => {
       const { pathname } = state.activeItem
       shell.moveItemToTrash(pathname)

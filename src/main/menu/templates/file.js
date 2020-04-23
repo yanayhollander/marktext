@@ -15,13 +15,6 @@ export default function (keybindings, userPreference, recentlyUsedFiles) {
         actions.newBlankTab(browserWindow)
         showTabBar(browserWindow)
       }
-    },
-    {
-      label: 'New Notebook',
-      accelerator: keybindings.getAccelerator('file.new-notebook'),
-      click (menuItem, browserWindow) {
-        actions.newNotebook(browserWindow)
-      }
     }, {
       label: 'New Window',
       accelerator: keybindings.getAccelerator('file.new-file'),

@@ -41,13 +41,6 @@ const commands = [
     execute: async () => {
       ipcRenderer.emit('mt::new-untitled-tab', null)
     }
-  },
-  {
-    id: 'file.new-notebook',
-    description: 'File: New Notebook',
-    execute: async () => {
-      ipcRenderer.emit('mt::new-notebook', null)
-    }
   }, {
     id: 'file.new-file',
     description: 'File: New Window',

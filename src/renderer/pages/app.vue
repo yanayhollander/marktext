@@ -153,7 +153,6 @@ export default {
     dispatch('LINTEN_FOR_SET_FINAL_NEWLINE')
     dispatch('LISTEN_FOR_NEW_TAB')
     dispatch('LISTEN_FOR_CLOSE_TAB')
-    dispatch('LISTEN_FOR_NEW_NOTEBOOK')
     dispatch('LISTEN_FOR_TAB_CYCLE')
     dispatch('LINTEN_FOR_PRINT_SERVICE_CLEARUP')
     dispatch('LINTEN_FOR_EXPORT_SUCCESS')

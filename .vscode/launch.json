@@ -32,8 +32,8 @@
       "port": 8315,
       "sourceMaps": true,
       "webRoot": "${workspaceFolder}/src",
-      "timeout": 10000,
-      "urlFilter": "http://localhost:9091/?udp=%2FUsers%2Fyhollander%2FLibrary%2FApplication+Support%2Fmarktext-dev&debug=1&wid=1&type=editor&cff=DejaVu+Sans+Mono&cfs=14&hsb=0&theme=dark&tbs=custom&slp=0#/editor"
+      "timeout": 60000,
+      "urlFilter": "http://localhost:9091"
     }
   ],
   "compounds": [

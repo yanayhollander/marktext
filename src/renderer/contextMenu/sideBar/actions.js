@@ -8,10 +8,6 @@ export const newDirectory = (menuItem, browserWindow) => {
   bus.$emit('SIDEBAR::new', 'directory')
 }
 
-export const newNotebook = (menuItem, browserWindow) => {
-  bus.$emit('NOTEBOOK::new', 'notebook')
-}
-
 export const copy = (menuItem, browserWindow) => {
   bus.$emit('SIDEBAR::copy-cut', 'copy')
 }

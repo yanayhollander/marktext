@@ -40,8 +40,6 @@
         :tabs="tabs"
         v-if="rightColumn === 'files'"
       ></tree>
-      <notebooks v-else-if="rightColumn === 'notebooks'"></notebooks>
-      <tags v-else-if="rightColumn === 'tags'"></tags>
       <side-bar-search v-else-if="rightColumn === 'search'"></side-bar-search>
       <toc v-else-if="rightColumn === 'toc'"></toc>
     </div>
@@ -52,8 +50,6 @@
 <script>
 import { sideBarIcons, sideBarBottomIcons } from './help'
 import Tree from './tree.vue'
-import Notebooks from './notebooks.vue'
-import Tags from './tags.vue'
 import SideBarSearch from './search.vue'
 import Toc from './toc.vue'
 import { mapState } from 'vuex'
@@ -69,8 +65,6 @@ export default {
   },
   components: {
     Tree,
-    Notebooks,
-    Tags,
     SideBarSearch,
     Toc
   },

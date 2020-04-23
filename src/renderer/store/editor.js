@@ -20,14 +20,10 @@ const state = {
   currentFile: {},
   tabs: [],
   listToc: [], // Just use for deep equal check. and replace with new toc if needed.
-  toc: [],
-  notebooks: []
+  toc: []
 }
 
 const mutations = {
-  SET_NOTEBOOKS (state, notebooks) {
-    state.notebooks = notebooks
-  },
   // set search key and matches also index
   SET_SEARCH (state, value) {
     state.currentFile.searchMatches = value
@@ -638,6 +634,7 @@ const actions = {
         addBlankTab,
         markdownList,
         lineEnding,
+        sideBarVisibility,
         tabBarVisibility,
         sourceCodeModeEnabled
       } = config
@@ -646,7 +643,7 @@ const actions = {
       commit('SET_USER_PREFERENCE', { endOfLine: lineEnding })
       commit('SET_LAYOUT', {
         rightColumn: 'files',
-        showSideBar: true,
+        showSideBar: !!sideBarVisibility,
         showTabBar: !!tabBarVisibility
       })
       dispatch('SET_LAYOUT_MENU_ITEM')
@@ -683,13 +680,6 @@ const actions = {
     ipcRenderer.on('mt::new-untitled-tab', (e, selected = true, markdown = '') => {
       // Create a blank tab
       dispatch('NEW_UNTITLED_TAB', { markdown, selected })
-    })
-  },
-
-  // Create a new notebook
-  LISTEN_FOR_NEW_NOTEBOOK ({ dispatch }) {
-    ipcRenderer.on('mt::new-notebook', (e) => {
-      dispatch('SET_NOTEBOOKS', { notebooks: ['FAKEEE1', 'FAKKKKKE2'] })
     })
   },
 
@@ -791,7 +781,6 @@ const actions = {
     }
 
     dispatch('SHOW_TAB_VIEW', false)
-    dispatch('SET_NOTEBOOKS', ['fakeNote1', 'fakeNote2'])
 
     const { defaultEncoding, endOfLine } = rootState.preferences
     const { tabs } = state
@@ -877,7 +866,7 @@ const actions = {
 
   // Content change from realtime preview editor and source code editor
   // WORKAROUND: id is "muya" if changes come from muya and not source code editor! So we don't have to apply the workaround.
-  LISTEN_FOR_CONTENT_CHANGE ({ commit, dispatch, state, rootState }, { id, markdown, wordCount, cursor, history, toc, notebook }) {
+  LISTEN_FOR_CONTENT_CHANGE ({ commit, dispatch, state, rootState }, { id, markdown, wordCount, cursor, history, toc }) {
     const { autoSave } = rootState.preferences
     const {
       id: currentId,
