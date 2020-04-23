@@ -30,7 +30,7 @@ const mutations = {
     state.notebooks = notebooks
   },
   SET_NEW_NOTEBOOK (state) {
-    state.notebooks.push(newNotebook())
+    state.notebooks.push(newNotebook(state.notebooks))
   },
   // set search key and matches also index
   SET_SEARCH (state, value) {

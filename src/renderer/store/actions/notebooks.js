@@ -1,6 +1,7 @@
-export function newNotebook () {
+export function newNotebook (existingNotebooks) {
+  let flattenNotebooks2 = flattenNotebooks(existingNotebooks)
   return {
-    id: 4,
+    id: getUniqueId(flattenNotebooks2),
     label: 'Untitled Notebook'
   }
 }
@@ -25,4 +26,29 @@ export function getDummyNotebooks () {
         markup: '118'
       }]
     }]
+}
+
+function getUniqueId (existingNotebooks) {
+  let potentialId = 1
+  existingNotebooks.forEach(notebook => {
+    if (notebook.id > 1) {
+      potentialId = notebook.id + 1
+    }
+  })
+  return potentialId
+}
+
+function flattenNotebooks (arr) {
+  var res = []
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].children) {
+      console.log(`id = ${arr[i]}, children = ${arr[i].children.length}`)
+      res.push(arr[i])
+      res = res.concat(flattenNotebooks(arr[i].children))
+    } else {
+      console.log(`id = ${arr[i]}`)
+      res.push(arr[i])
+    }
+  }
+  return res
 }
