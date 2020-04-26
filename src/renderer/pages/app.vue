@@ -3,6 +3,7 @@
     <div class="content">
       <div class="editor-container">
         <side-bar v-if="init"></side-bar>
+        <notes-column></notes-column>
         <div class="editor-middle">
           <title-bar
             :project="projectTree"
@@ -44,6 +45,7 @@ import Recent from '@/components/recent'
 import EditorWithTabs from '@/components/editorWithTabs'
 import TitleBar from '@/components/titleBar'
 import SideBar from '@/components/sideBar'
+import NotesColumn from '@/components/notesColumn'
 import StatusBar from '@/components/statusBar'
 import Aidou from '@/components/aidou/aidou'
 import AboutDialog from '@/components/about'
@@ -65,6 +67,7 @@ export default {
     EditorWithTabs,
     TitleBar,
     SideBar,
+    NotesColumn,
     StatusBar,
     AboutDialog,
     ExportSettingDialog,

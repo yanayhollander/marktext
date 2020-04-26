@@ -17,6 +17,16 @@
       @node-click="handleClick"
       :expand-on-click-node="true"
       :indent="10"
+      @node-drag-start="handleDragStart"
+      @node-drag-enter="handleDragEnter"
+      @node-drag-leave="handleDragLeave"
+      @node-drag-over="handleDragOver"
+      @node-drag-end="handleDragEnd"
+      @node-drop="handleDrop"
+      draggable
+      accordion
+      :allow-drop="allowDrop"
+      :allow-drag="allowDrag"
     ></el-tree>
     <div class="no-data" v-else>
       <svg aria-hidden="true" :viewBox="EmptyIcon.viewBox">
@@ -50,6 +60,34 @@ export default {
   methods: {
     handleClick ({ slug }) {
       bus.$emit('scroll-to-header', slug)
+    },
+    handleDragStart (node, ev) {
+      console.log('drag start', node)
+    },
+    handleDragEnter (draggingNode, dropNode, ev) {
+      console.log('tree drag enter: ', dropNode.label)
+    },
+    handleDragLeave (draggingNode, dropNode, ev) {
+      console.log('tree drag leave: ', dropNode.label)
+    },
+    handleDragOver (draggingNode, dropNode, ev) {
+      console.log('tree drag over: ', dropNode.label)
+    },
+    handleDragEnd (draggingNode, dropNode, dropType, ev) {
+      console.log('tree drag end: ', dropNode && dropNode.label, dropType)
+    },
+    handleDrop (draggingNode, dropNode, dropType, ev) {
+      console.log('tree drop: ', dropNode.label, dropType)
+    },
+    allowDrop (draggingNode, dropNode, type) {
+      if (dropNode.data.label === 'Level two 3-1') {
+        return type !== 'inner'
+      } else {
+        return true
+      }
+    },
+    allowDrag (draggingNode) {
+      return draggingNode.data.label.indexOf('Level three 3-1-1') === -1
     }
   }
 }

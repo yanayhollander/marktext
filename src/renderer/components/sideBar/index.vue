@@ -150,7 +150,6 @@ export default {
   color: var(--sideBarColor);
   user-select: none;
   background: var(--sideBarBgColor);
-  border-right: 1px solid var(--itemBgColor);
   & .left-column {
     & svg {
       fill: var(--iconColor);
@@ -215,6 +214,7 @@ export default {
   height: 100%;
   width: 3px;
   cursor: col-resize;
+  border-right: 1px solid var(--itemBgColor);
   &:hover {
     border-right: 2px solid var(--iconColor);
   }
