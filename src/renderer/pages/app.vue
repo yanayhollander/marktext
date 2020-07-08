@@ -58,7 +58,8 @@ import { loadingPageMixins } from '@/mixins'
 import { mapState } from 'vuex'
 import bus from '@/bus'
 import { DEFAULT_STYLE } from '@/config'
-
+import SpellIcon from '@/assets/icons/pref_spellcheck.svg'
+console.log(SpellIcon)
 export default {
   name: 'marktext',
   components: {
@@ -237,6 +238,5 @@ export default {
 .content {
   flex-grow: 1;
   height: calc(100vh - var(--titleBarHeight) - var(--statusBarHeight));
-  background-color: green;
 }
 </style>

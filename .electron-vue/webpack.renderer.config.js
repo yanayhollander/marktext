@@ -5,7 +5,7 @@ process.env.BABEL_ENV = 'renderer'
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const SpritePlugin = require('svg-sprite-loader/plugin')
@@ -30,13 +30,17 @@ const rendererConfig = {
     renderer: path.join(__dirname, '../src/renderer/main.js')
   },
   externals: [
-    ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
+    ...Object.keys(dependencies || {}).filter(
+      d => !whiteListedModules.includes(d)
+    )
   ],
   module: {
     rules: [
       {
-        test: require.resolve(path.join(__dirname, '../src/muya/lib/assets/libs/snap.svg-min.js')),
-        use: 'imports-loader?this=>window,fix=>module.exports=0',
+        test: require.resolve(
+          path.join(__dirname, '../src/muya/lib/assets/libs/snap.svg-min.js')
+        ),
+        use: 'imports-loader?this=>window,fix=>module.exports=0'
       },
       {
         test: /\.(js|vue)$/,
@@ -52,10 +56,7 @@ const rendererConfig = {
       },
       {
         test: /(theme\-chalk(?:\/|\\)index|exportStyle|katex|github\-markdown|prism[\-a-z]*|\.theme|headerFooterStyle)\.css$/,
-        use: [
-          'to-string-loader',
-          'css-loader'
-        ]
+        use: ['to-string-loader', 'css-loader']
       },
       {
         test: /\.css$/,
@@ -63,14 +64,17 @@ const rendererConfig = {
         use: [
           proMode ? MiniCssExtractPlugin.loader : 'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          { loader: 'postcss-loader', options: {
-            ident: 'postcss',
-            plugins: () => [
-              postcssPresetEnv({
-                stage: 0
-              })
-            ]
-          } }
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                postcssPresetEnv({
+                  stage: 0
+                })
+              ]
+            }
+          }
         ]
       },
       {
@@ -145,9 +149,7 @@ const rendererConfig = {
       },
       {
         test: /\.md$/,
-        use: [
-          'raw-loader'
-        ]
+        use: ['raw-loader']
       }
     ]
   },
@@ -165,9 +167,10 @@ const rendererConfig = {
         removeAttributeQuotes: true,
         removeComments: true
       },
-      nodeModules: process.env.NODE_ENV !== 'production'
-        ? path.resolve(__dirname, '../node_modules')
-        : false
+      nodeModules:
+        process.env.NODE_ENV !== 'production'
+          ? path.resolve(__dirname, '../node_modules')
+          : false
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin(getRendererEnvironmentDefinitions()),
@@ -185,12 +188,15 @@ const rendererConfig = {
   },
   resolve: {
     alias: {
-      'main': path.join(__dirname, '../src/main'),
+      main: path.join(__dirname, '../src/main'),
       '@': path.join(__dirname, '../src/renderer'),
-      'common': path.join(__dirname, '../src/common'),
-      'muya': path.join(__dirname, '../src/muya'),
-      snapsvg: path.join(__dirname, '../src/muya/lib/assets/libs/snap.svg-min.js'),
-      'vue$': 'vue/dist/vue.esm.js'
+      common: path.join(__dirname, '../src/common'),
+      muya: path.join(__dirname, '../src/muya'),
+      snapsvg: path.join(
+        __dirname,
+        '../src/muya/lib/assets/libs/snap.svg-min.js'
+      ),
+      vue$: 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
@@ -203,17 +209,18 @@ const rendererConfig = {
 if (!proMode) {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
+      __static: `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
     }),
     new webpack.HotModuleReplacementPlugin()
   )
 }
 
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' &&
-  !process.env.MARKTEXT_DEV_HIDE_BROWSER_ANALYZER) {
-  rendererConfig.plugins.push(
-    new BundleAnalyzerPlugin()
-  )
+if (
+  process.env.NODE_ENV !== 'production' &&
+  process.env.NODE_ENV !== 'test' &&
+  !process.env.MARKTEXT_DEV_HIDE_BROWSER_ANALYZER
+) {
+  rendererConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
 // Fix debugger breakpoints
@@ -229,7 +236,9 @@ if (proMode) {
   rendererConfig.mode = 'production'
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      'process.env.UNSPLASH_ACCESS_KEY': JSON.stringify(process.env.UNSPLASH_ACCESS_KEY)
+      'process.env.UNSPLASH_ACCESS_KEY': JSON.stringify(
+        process.env.UNSPLASH_ACCESS_KEY
+      )
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -245,7 +254,10 @@ if (proMode) {
       },
       {
         from: path.resolve(__dirname, '../node_modules/codemirror/mode/*/*'),
-        to: path.join(__dirname, '../dist/electron/codemirror/mode/[name]/[name].js')
+        to: path.join(
+          __dirname,
+          '../dist/electron/codemirror/mode/[name]/[name].js'
+        )
       }
     ]),
     new webpack.LoaderOptionsPlugin({

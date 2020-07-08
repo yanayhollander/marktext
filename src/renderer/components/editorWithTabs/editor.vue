@@ -1,28 +1,24 @@
 <template>
   <div
     class="editor-wrapper"
-    :class="[{ 'typewriter': typewriter, 'focus': focus, 'source': sourceCode }]"
-    :style="{ 'lineHeight': lineHeight, 'fontSize': `${fontSize}px`,
-    'font-family': editorFontFamily ? `${editorFontFamily}, ${defaultFontFamily}` : `${defaultFontFamily}` }"
+    :class="[{ typewriter: typewriter, focus: focus, source: sourceCode }]"
+    :style="{
+      lineHeight: lineHeight,
+      fontSize: `${fontSize}px`,
+      'font-family': editorFontFamily
+        ? `${editorFontFamily}, ${defaultFontFamily}`
+        : `${defaultFontFamily}`
+    }"
     :dir="textDirection"
   >
-    <div
-      ref="editor"
-      class="editor-component"
-    ></div>
-    <div
-      class="image-viewer"
-      v-show="imageViewerVisible"
-    >
+    <div ref="editor" class="editor-component"></div>
+    <div class="image-viewer" v-show="imageViewerVisible">
       <span class="icon-close" @click="setImageViewerVisible(false)">
         <svg :viewBox="CloseIcon.viewBox">
           <use :xlink:href="CloseIcon.url"></use>
         </svg>
       </span>
-      <div
-        ref="imageViewer"
-      >
-      </div>
+      <div ref="imageViewer"></div>
     </div>
     <el-dialog
       :visible.sync="dialogTableVisible"
@@ -31,7 +27,7 @@
       custom-class="ag-dialog-table"
       width="454px"
       center
-      dir='ltr'
+      dir="ltr"
     >
       <div slot="title" class="dialog-title">
         Insert Table
@@ -66,9 +62,7 @@
         </el-button>
       </div>
     </el-dialog>
-    <search
-      v-if="!sourceCode"
-    ></search>
+    <search v-if="!sourceCode"></search>
   </div>
 </template>
 
@@ -1215,73 +1209,73 @@ export default {
 </script>
 
 <style>
-  .editor-wrapper {
-    height: 100%;
-    position: relative;
-    flex: 1;
-    color: var(--editorColor);
-    & .ag-dialog-table {
-      & .el-button {
-        font-size: 13px;
-        width: 70px;
-      }
+.editor-wrapper {
+  height: 100%;
+  position: relative;
+  flex: 1;
+  color: var(--editorColor);
+  & .ag-dialog-table {
+    & .el-button {
+      font-size: 13px;
+      width: 70px;
     }
   }
+}
 
-  .editor-wrapper.source {
+.editor-wrapper.source {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.editor-component {
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.typewriter .editor-component {
+  padding-top: calc(50vh - 136px);
+  padding-bottom: calc(50vh - 54px);
+}
+
+.image-viewer {
+  position: fixed;
+  backdrop-filter: blur(5px);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 11;
+  & .icon-close {
+    z-index: 1000;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-  }
-
-  .editor-component {
-    height: 100%;
-    overflow: auto;
-    box-sizing: border-box;
-  }
-
-  .typewriter .editor-component {
-    padding-top: calc(50vh - 136px);
-    padding-bottom: calc(50vh - 54px);
-  }
-
-  .image-viewer {
-    position: fixed;
-    backdrop-filter: blur(5px);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .8);
-    z-index: 11;
-    & .icon-close {
-      z-index: 1000;
-      width: 30px;
-      height: 30px;
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      display: block;
-      & svg {
-        fill: #efefef;
-        width: 100%;
-        height: 100%;
-      }
+    top: 50px;
+    left: 50px;
+    display: block;
+    & svg {
+      fill: #efefef;
+      width: 100%;
+      height: 100%;
     }
   }
+}
 
-  .iv-container {
-    width: 100%;
-    height: 100%;
-  }
+.iv-container {
+  width: 100%;
+  height: 100%;
+}
 
-  .iv-snap-view {
-    opacity: 1;
-    bottom: 20px;
-    right: 20px;
-    top: auto;
-    left: auto;
-  }
+.iv-snap-view {
+  opacity: 1;
+  bottom: 20px;
+  right: 20px;
+  top: auto;
+  left: auto;
+}
 </style>
